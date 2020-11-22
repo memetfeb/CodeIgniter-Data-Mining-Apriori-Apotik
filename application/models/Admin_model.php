@@ -8,6 +8,12 @@ class Admin_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    public function getHasil()
+    {
+        $sql = "SELECT * FROM process_log";
+        return $this->db->query($sql)->result();
+    }
+
     public function getTotalTransaksi()
     {
         $sql = "SELECT * FROM transaksi";
@@ -55,7 +61,50 @@ class Admin_model extends CI_Model
         $this->db->insert_batch('transaksi', $data);
     }
 
-    
+    // Confidence ItemSet 3
+    public function confidenceItemset3($id)
+    {
+        $id_process = $id;
+        $sql = "SELECT conf.*, log.start_date, log.end_date FROM confidence conf, process_log log
+            WHERE conf.id_process = '$id_process' "." AND conf.id_process = log.id "." AND conf.from_itemset=3 ";
+        return $this->db->query($sql)->result();
+    }
 
+    // Confidence ItemSet 2
+    public function confidenceItemset2($id)
+    {
+        $id_process = $id;
+        $sql = "SELECT conf.*, log.start_date, log.end_date FROM confidence conf, process_log log
+            WHERE conf.id_process = '$id_process' "." AND conf.id_process = log.id "." AND conf.from_itemset=2 ";
+        return $this->db->query($sql)->result();
+    }
+
+    // Get Rule Info
+    public function getRuleID($id)
+    {
+        $sql = "SELECT * FROM process_log WHERE id = '$id'";
+        return $this->db->query($sql)->row();
+    }
+
+    // Get Itemset 1
+    public function getItemset1($id)
+    {
+        $sql = "SELECT * FROM itemset1 WHERE id_process = '$id' "." ORDER BY lolos DESC";
+        return $this->db->query($sql)->result();
+    }
+
+    // Get Itemset 2
+    public function getItemset2($id)
+    {
+        $sql = "SELECT * FROM itemset2 WHERE id_process = '$id' "." ORDER BY lolos DESC";
+        return $this->db->query($sql)->result();
+    }
+
+    // Get Itemset 3
+    public function getItemset3($id)
+    {
+        $sql = "SELECT * FROM itemset3 WHERE id_process = '$id' "." ORDER BY lolos DESC";
+        return $this->db->query($sql)->result();
+    }
     
 }
