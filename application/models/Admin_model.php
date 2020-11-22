@@ -8,6 +8,12 @@ class Admin_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    public function getHasil()
+    {
+        $sql = "SELECT * FROM process_log";
+        return $this->db->query($sql)->result();
+    }
+
     public function getTotalTransaksi()
     {
         $sql = "SELECT * FROM transaksi";
@@ -54,6 +60,26 @@ class Admin_model extends CI_Model
         $data = $this->_batchImport;
         $this->db->insert_batch('transaksi', $data);
     }
+
+    // Confidence ItemSet 3
+    public function confidenceItemset3($id)
+    {
+        $id_process = $id;
+        $sql = "SELECT conf.*, log.start_date, log.end_date FROM confidence conf, process_log log
+            WHERE conf.id_process = '$id_process' "." AND conf.id_process = log.id "." AND conf.from_itemset=3 ";
+        return $this->db->query($sql)->result();
+    }
+
+    // Confidence ItemSet 2
+    public function confidenceItemset2($id)
+    {
+        $id_process = $id;
+        $sql = "SELECT conf.*, log.start_date, log.end_date FROM confidence conf, process_log log
+            WHERE conf.id_process = '$id_process' "." AND conf.id_process = log.id "." AND conf.from_itemset=2 ";
+        return $this->db->query($sql)->result();
+    }
+
+
 
     
 
