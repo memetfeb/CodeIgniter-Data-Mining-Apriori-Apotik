@@ -79,9 +79,32 @@ class Admin_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    // Get Rule Info
+    public function getRuleID($id)
+    {
+        $sql = "SELECT * FROM process_log WHERE id = '$id'";
+        return $this->db->query($sql)->row();
+    }
 
+    // Get Itemset 1
+    public function getItemset1($id)
+    {
+        $sql = "SELECT * FROM itemset1 WHERE id_process = '$id' "." ORDER BY lolos DESC";
+        return $this->db->query($sql)->result();
+    }
 
-    
+    // Get Itemset 2
+    public function getItemset2($id)
+    {
+        $sql = "SELECT * FROM itemset2 WHERE id_process = '$id' "." ORDER BY lolos DESC";
+        return $this->db->query($sql)->result();
+    }
 
+    // Get Itemset 3
+    public function getItemset3($id)
+    {
+        $sql = "SELECT * FROM itemset3 WHERE id_process = '$id' "." ORDER BY lolos DESC";
+        return $this->db->query($sql)->result();
+    }
     
 }

@@ -20,7 +20,11 @@ class Hasil extends CI_Controller
     {
         $data["ConfidenceItemset3"] = $this->admin_model->confidenceItemset3($id);
         $data["ConfidenceItemset2"] = $this->admin_model->confidenceItemset2($id);
-        
+        $data["RuleID"] = $this->admin_model->getRuleID($id);
+        $data["ItemSet1"] = $this->admin_model->getItemset1($id);
+        $data["ItemSet2"] = $this->admin_model->getItemset2($id);
+        $data["ItemSet3"] = $this->admin_model->getItemset3($id);
+
         $this->load->view("admin/view_rule", $data);
     }
 
