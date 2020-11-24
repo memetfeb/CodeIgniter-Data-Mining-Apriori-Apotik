@@ -14,10 +14,9 @@
       <div class="menu_section" style="margin-top: 20px">
         <!-- menu sidebar -->
         <ul class="nav side-menu">
-          <li><a href="<?php echo site_url('admin/data_transaksi') ?>"><i class="fa fa-database"></i> Data Transaksi <span class="fa fa-chevron"></span></a>
-          </li>
-          <li><a href="<?php echo site_url('admin/proses_apriori') ?>"><i class="fa fa-bolt"></i> Proses Apriori <span class="fa fa-chevron"></span></a>
-          </li>
+          <li><a href="<?php echo site_url('admin/data_transaksi') ?>"><i class="fa fa-database"></i> Data Transaksi <span class="fa fa-chevron"></span></a></li>
+          <li><a href="<?php echo site_url('admin/proses_apriori') ?>"><i class="fa fa-bolt"></i> Proses Apriori <span class="fa fa-chevron"></span></a></li>
+          <li><a href="<?php echo site_url('admin/hasil') ?>"><i class="fa fa-check"></i> Hasil <span class="fa fa-chevron"></span></a></i>
 
         </ul>
       </div>
