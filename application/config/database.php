@@ -76,9 +76,17 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'sulameto_apotik',
-	'password' => '8hW27@EA64EF',
+
+//local
+	'username' => 'root',
+	'password' => '',
 	'database' => 'sulameto_apotik',
+	
+//hosting
+	// 'username' => 'sulameto_apotik',
+	// 'password' => '8hW27@EA64EF',
+	// 'database' => 'sulameto_apotik',
+	
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
