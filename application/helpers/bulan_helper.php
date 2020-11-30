@@ -1,5 +1,9 @@
 <?php
 if (!function_exists('bulan')) {
+    function format_date($date){
+        $date_ex = explode("/", $date);
+        return $date_ex[2]."-".$date_ex[0]."-".$date_ex[1];
+    }
     function bulan($bulan){
         switch ($bulan) {
             case 1:

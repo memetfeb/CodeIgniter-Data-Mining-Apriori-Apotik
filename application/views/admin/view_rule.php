@@ -246,7 +246,7 @@
 													<tr>
 														<td align="center" width="5"><?php echo $j ?></td>
 														<td> Jika konsumen membeli <?php echo $val->kombinasi1 ?>, maka
-															konsumen juga akan membeli <?php $val->kombinasi2 ?>
+															konsumen juga akan membeli <?php echo $val->kombinasi2 ?>
 														</td>
 														<td align="center" width="150">
 															<?php echo $val->confidence ?></td>
