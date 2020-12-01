@@ -39,6 +39,16 @@ class Admin_model extends CI_Model {
 		return $this->db->delete("transaksi", array("id"=> $id));
 	}
 
+	public function deleteRule($id) {
+		$this->db->delete("process_log", array("id"=> $id));
+		$this->db->delete("confidence", array("id_process"=> $id));
+		$this->db->delete("itemset1", array("id_process"=> $id));
+		$this->db->delete("itemset2", array("id_process"=> $id));
+		$this->db->delete("itemset3", array("id_process"=> $id));
+		
+		return true;
+	}
+
 	private $_batchImport;
 
 	public function setBatchImport($batchImport) {
@@ -676,6 +686,8 @@ return $this->db->query($sql)->result();
 		}
 		// var_dump($valueIn);
 		// die();
+
+		
 		//build itemset3
 		$a=0;
 		$tigaVariasiItem=$valueIn_itemset3=array();

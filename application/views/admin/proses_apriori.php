@@ -65,14 +65,14 @@
 											<div class="form-group col-md-12 col-sm-12">
 												<label class="col-form-label col-md-4 col-sm-4 label-align">Min Support : </label>
 												<div class="col-md-6 col-sm-6 ">
-													<input class="form-control" type="number" name="support" placeholder="Min Support" required />
+													<input class="form-control" type="number" step="any" name="support" placeholder="Min Support" required />
 												</div>
 											</div>
 
 											<div class="form-group col-md-12 col-sm-12">
 												<label class="col-form-label col-md-4 col-sm-4 label-align">Min Confidence : </label>
 												<div class="col-md-6 col-sm-6 ">
-													<input class="form-control" type="number" name="confidence" placeholder="Min Confidence"
+													<input class="form-control" type="number" step="any" name="confidence" placeholder="Min Confidence"
 														required />
 												</div>
 											</div>

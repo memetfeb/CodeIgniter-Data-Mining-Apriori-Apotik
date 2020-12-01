@@ -75,10 +75,8 @@
 															<a href="<?php echo site_url('admin/hasil/viewRule/'.$hasil->id) ?>"
 																style="margin-right: 9px"><i
 																	class="fa fa-tachometer"></i> View Rule </a>
-															<a href="#" style="margin-right: 9px"><i
-																	class="fa fa-print"></i> Print </a>
-															<!-- <a onclick="deleteConfirm('<?php echo site_url('admin/data_transaksi/hapusTransaksi/'.$data_transaksi->id) ?>')" href="#!" ><i class="fa fa-trash"></i> Hapus</a> -->
-														</td>
+															<a onclick="deleteConfirm('<?php echo site_url('admin/hasil/hapusRule/'.$hasil->id) ?>')"
+																href="#!"><i class="fa fa-trash"></i> Hapus</a> </td>
 													</tr>
 													<?php $j++; ?>
 													<?php endforeach; ?>
@@ -95,6 +93,29 @@
 				<br />
 			</div>
 			<!-- /page content -->
+
+			<!-- Delete Confirmation-->
+			<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">
+								Apakah anda yakin?
+							</h5>
+							<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">Data yang dihapus tidak akan bisa dikembalikan.</div>
+						<div class="modal-footer">
+							<button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+							<a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<!-- footer content -->
 			<?php $this->load->view("admin/_partials/footer.php") ?>
 			<!-- /footer content -->

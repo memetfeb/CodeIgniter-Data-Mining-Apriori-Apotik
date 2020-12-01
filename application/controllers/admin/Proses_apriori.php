@@ -8,6 +8,8 @@ class Proses_apriori extends CI_Controller
         parent::__construct();
         $this->load->model("admin_model");
         $this->load->helper('bulan_helper');
+        ini_set('max_execution_time', 0); 
+ini_set('memory_limit','2048M');
         //if($this->user_model->isNotLogin()) redirect(site_url('login'));
     }
 
@@ -19,6 +21,7 @@ class Proses_apriori extends CI_Controller
 
     public function prosesApriori()
     {
+        $awal = microtime(true);
         $post=$this->input->post();
         $min_support = $_POST['support'];
         $min_confidence = $_POST['confidence'];
@@ -32,8 +35,14 @@ class Proses_apriori extends CI_Controller
         $mining = $this->admin_model->miningProcess($min_support,$min_confidence,$start,$end);
         $lastId=$this->admin_model->getLastIdProcessLog();
         $last = $lastId->last;
+        $akhir = microtime(true);
+
+        $hasil = $akhir - $awal;
+
         if ($mining) {
-            $this->session->set_flashdata('success', 'Mining Berhasil');
+            $this->session->set_flashdata('success', 'Mining Berhasil '.$hasil.'detik');
+            // $this->session->set_flashdata('success', );
+
             redirect(site_url('admin/hasil/viewRule/'.$last));
         } else {
             $this->session->set_flashdata('error', 'Mining Gagal');

@@ -16,6 +16,15 @@ class Hasil extends CI_Controller
         $this->load->view("admin/hasil", $data);
     }
 
+    public function hapusRule($id)
+    {
+        if (!isset($id)) show_404();
+        if ($this->admin_model->deleteRule($id)) {
+            $this->session->set_flashdata('success', 'Rule Berhasil dihapus');
+            redirect(site_url('admin/hasil'));
+        }
+    }
+
     public function viewRule($id)
     {
         $data["ConfidenceItemset3"] = $this->admin_model->confidenceItemset3($id);
