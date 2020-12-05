@@ -175,7 +175,7 @@
 							</div>
 						</div>
 
-						<div class="x_panel">
+						<!-- <div class="x_panel">
 							<div class="x_title">
 								<h2>Rule Asosiasi </h2>
 								<div class="clearfix"></div>
@@ -220,7 +220,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="x_panel">
 							<div class="x_title">
