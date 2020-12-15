@@ -300,10 +300,10 @@ return $this->db->query($sql)->result();
 
 	function jumlah_itemset1($transaksi_list, $produk) {
 		$count=0;
-
 		foreach ($transaksi_list as $key=> $data) {
 			$items=",".strtoupper($data['produk']);
 			$item_cocok=",".strtoupper($produk).",";
+			//Fungsi strpos() adalah fungsi bawaan PHP yang bisa digunakan untuk mencari posisi sebuah karakter atau sebuah string di dalam string lainnya
 			$pos=strpos($items, $item_cocok);
 
 			if($pos !==false) {
@@ -526,35 +526,33 @@ return $this->db->query($sql)->result();
 	}
 
 	public function miningProcess($min_support, $min_confidence, $start, $end) {
-		$sql_trans="SELECT * FROM transaksi WHERE transaction_date BETWEEN '$start' AND '$end'";
-		$result_trans=$this->db->query($sql_trans)->result();
-		$result_trans2=$this->db->query($sql_trans)->result_array();
-		$result_trans3=$this->db->query($sql_trans)->row();
-
-		$jumlah_transaksi1=$this->db->query($sql_trans)->num_rows();
-		$jumlah_transaksi=count($result_trans);
-		$jumlah_transaksi2=count($result_trans2);
-
+		
+		//Tambah proses baru ke database
 		$this->tambahProcessLog($min_support,$min_confidence,$start,$end);
 
+		//Ambil data dari data transaksi
+		$sql_trans="SELECT * FROM transaksi WHERE 
+		transaction_date BETWEEN '$start' AND '$end'";
+		$result_trans=$this->db->query($sql_trans)->result_array();
 
-		// var_dump($result_trans);
-		// var_dump($jumlah_transaksi1);
+		//Hitung jumlah data transaksi
+		$jumlah_transaksi=count($result_trans);
 
-		// die();
-
+		//inisialisasi
 		$dataTransaksi=$myrow=$item_list=array();
-		// $jumlah_transaksi=num_rows($jumlah_trans);
 
+		//hitung minimum suport relative
 		$min_support_relative=($min_support/$jumlah_transaksi)*100;
-		$x=0;
 
-		// while($myrow=$this->db->query($sql_trans)->result_array()) {
-		foreach($result_trans2 as $myrow) {
-		
+		//looping input data ke $dataTransaksi
+		$x=0;
+		foreach($result_trans as $myrow) {
+
+			//input tanggal transaksi
 			$dataTransaksi[$x]['tanggal']=$myrow['transaction_date'];
+			
+			//mencegah ada jarak spasi di antara item
 			$item_produk=$myrow['produk'].",";
-			//mencegah ada jarak spasi
 			$item_produk=str_replace(" ,", ",", $item_produk);
 			$item_produk=str_replace("  ,", ",", $item_produk);
 			$item_produk=str_replace("   ,", ",", $item_produk);
@@ -564,44 +562,37 @@ return $this->db->query($sql)->result();
 			$item_produk=str_replace(",   ", ",", $item_produk);
 			$item_produk=str_replace(",    ", ",", $item_produk);
 
+			//input data produk yang telah bersih
 			$dataTransaksi[$x]['produk']=$item_produk;
+
+			//explode = memisahkan atau memecah-mecahkan suatu string berdasarkan tanda pemisah
 			$produk=explode(",", $myrow['produk']);
 
-			//all items
-			foreach ($produk as $key=> $value_produk) {
-
-				//if(!in_array($value_produk, $item_list)){
+			//cek duplikasi item produk dan mengubah ke huruf kapital
+			//input data ke $item_list
+			foreach ($produk as $key=>$value_produk) {
+				//Fungsi strtoupper ini adalah suatu perintah yang ada pada PHP untuk membuat suatu string menjadi huruf kapital
 				if( !in_array(strtoupper($value_produk), array_map('strtoupper', $item_list))) {
 					if( !empty($value_produk)) {
 						$item_list[]=$value_produk;
 					}
 				}
 			}
-
-			 $x++;
+			$x++;
 		}
 
+		//inisialisasi id process
 		$id_Yuhuu=$this->getLastIdProcessLog();
 		$id_process=$id_Yuhuu->last;
-		
 		
 		//build itemset 1
 		$itemset1=$jumlahItemset1=$supportItemset1=$valueIn=array();
 		$x=1;
 
 		foreach ($item_list as $key=> $item) {
+			//menghitung jumlah masing masing item dalam semua transaksi
 			$jumlah=$this->jumlah_itemset1($dataTransaksi, $item);
-			$support=($jumlah/$jumlah_transaksi) * 100;
-
-			// var_dump($item);
-			
-			// var_dump($jumlah);
-			// var_dump($jumlah_transaksi);
-
-			// var_dump($support);
-			// var_dump($min_support_relative);
-			// die();
-			
+			$support=($jumlah/$jumlah_transaksi) * 100;	
 			if ($support>=$min_support_relative){
 				$lolos = 1;
 			}else{
@@ -615,11 +606,9 @@ return $this->db->query($sql)->result();
 				$jumlahItemset1[]=$jumlah;
 				$supportItemset1[]=$support;
 			}
-
 			$x++;
 		}
 		
-
 		//insert into itemset1 one query with many value
 		if ($valueIn){
 		$value_insert=implode(",", $valueIn);
@@ -634,15 +623,11 @@ return $this->db->query($sql)->result();
 		$no=1;
 		$a=0;
 
-		
-
 		while ($a < count($itemset1)) {
 			$b=0;
-
 			while ($b < count($itemset1)) {
 				$variance1=$itemset1[$a];
 				$variance2=$itemset1[$b];
-
 				if ( !empty($variance1) && !empty($variance2)) {
 					if ($variance1 !=$variance2) {
 						if( !$this->is_exist_variasi_itemset($NilaiAtribut1, $NilaiAtribut2, $variance1, $variance2)) {
@@ -650,43 +635,31 @@ return $this->db->query($sql)->result();
 							$jml_itemset2=$this->jumlah_itemset2($dataTransaksi, $variance1, $variance2);
 							$NilaiAtribut1[]=$variance1;
 							$NilaiAtribut2[]=$variance2;
-
 							$support2=($jml_itemset2/$jumlah_transaksi) * 100;
 							$lolos=($support2 >=$min_support_relative)? 1: 0;
-
 							$valueIn_itemset2[]="('$variance1','$variance2','$jml_itemset2','$support2','$lolos','$id_process')";
-
 							if($lolos) {
 								$itemset2_var1[]=$variance1;
 								$itemset2_var2[]=$variance2;
 								$jumlahItemset2[]=$jml_itemset2;
 								$supportItemset2[]=$support2;
 							}
-
 							$no++;
 						}
 					}
 				}
-
 				$b++;
 			}
-
 			$a++;
 		}
 
-		
-
 		//insert into itemset2 one query with many value
-		
 		if ($valueIn_itemset2){
 		$value_insert_itemset2=implode(",", $valueIn_itemset2);
 		
 		$sql_insert_itemset2="INSERT INTO itemset2 (atribut1, atribut2, jumlah, support, lolos, id_process) VALUES ".$value_insert_itemset2;
 		$this->db->query($sql_insert_itemset2);
 		}
-		// var_dump($valueIn);
-		// die();
-
 		
 		//build itemset3
 		$a=0;
@@ -701,36 +674,28 @@ return $this->db->query($sql)->result();
 				if($a !=$b) {
 					$itemset1a=$itemset2_var1[$a];
 					$itemset1b=$itemset2_var1[$b];
-
 					$itemset2a=$itemset2_var2[$a];
 					$itemset2b=$itemset2_var2[$b];
 
 					if ( !empty($itemset1a) && !empty($itemset1b)&& !empty($itemset2a) && !empty($itemset2b)) {
-
 						$temp_array=$this->get_variasi_itemset3($tigaVariasiItem, $itemset1a, $itemset1b, $itemset2a, $itemset2b);
-
 						if(count($temp_array)>0) {
 							//variasi-variasi itemset isi ke array
 							$tigaVariasiItem=array_merge($tigaVariasiItem, $temp_array);
 
 							foreach ($temp_array as $idx=> $val_nilai) {
 								$itemset1=$itemset2=$itemset3="";
-
 								$aaa=0;
-
 								foreach ($val_nilai as $idx1=> $v_nilai) {
 									if($aaa==0) {
 										$itemset1=$v_nilai;
 									}
-
 									if($aaa==1) {
 										$itemset2=$v_nilai;
 									}
-
 									if($aaa==2) {
 										$itemset3=$v_nilai;
 									}
-
 									$aaa++;
 								}
 
@@ -753,7 +718,6 @@ return $this->db->query($sql)->result();
 						}
 					}
 				}
-
 				$b++;
 			}
 
@@ -809,7 +773,6 @@ return $this->db->query($sql)->result();
 				//3 => 2,1
 				$this->hitung_confidence1($supp_xuy, $min_support, $min_confidence,
 					$atribut3, $atribut2, $atribut1, $id_process, $dataTransaksi, $jumlah_transaksi);
-
 			}
 		}
 
@@ -835,10 +798,6 @@ return $this->db->query($sql)->result();
 				$this->hitung_confidence2($supp_xuy, $min_support, $min_confidence, $atribut2, $atribut1, $id_process, $dataTransaksi, $jumlah_transaksi);
 			}
 		}
-
-		// var_dump($confidence_from_itemset);
-        // die();
-
 		if($confidence_from_itemset==0) {
 			return false;
 		}else{
