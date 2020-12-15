@@ -175,7 +175,7 @@
 							</div>
 						</div>
 
-						<div class="x_panel">
+						<!-- <div class="x_panel">
 							<div class="x_title">
 								<h2>Rule Asosiasi </h2>
 								<div class="clearfix"></div>
@@ -220,7 +220,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="x_panel">
 							<div class="x_title">
@@ -246,7 +246,7 @@
 													<tr>
 														<td align="center" width="5"><?php echo $j ?></td>
 														<td> Jika konsumen membeli <?php echo $val->kombinasi1 ?>, maka
-															konsumen juga akan membeli <?php $val->kombinasi2 ?>
+															konsumen juga akan membeli <?php echo $val->kombinasi2 ?>
 														</td>
 														<td align="center" width="150">
 															<?php echo $val->confidence ?></td>
@@ -313,7 +313,7 @@
 							</div>
 						</div>
 
-						<div class="x_panel">
+						<!-- <div class="x_panel">
 							<div class="x_title">
 								<h2>Itemset 1 Lolos</h2>
 								<div class="clearfix"></div>
@@ -351,7 +351,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 
 						<!-- Tabel Itemset 2  -->
@@ -406,7 +406,7 @@
 							</div>
 						</div>
 
-						<div class="x_panel">
+						<!-- <div class="x_panel">
 							<div class="x_title">
 								<h2>Itemset 2 Lolos</h2>
 								<div class="clearfix"></div>
@@ -446,7 +446,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<!-- Tabel Itemset 3  -->
 						<div class="x_panel">
@@ -502,7 +502,7 @@
 							</div>
 						</div>
 
-						<div class="x_panel">
+						<!-- <div class="x_panel">
 							<div class="x_title">
 								<h2>Itemset 3 Lolos</h2>
 								<div class="clearfix"></div>
@@ -547,7 +547,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 
 					</div>

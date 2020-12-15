@@ -26,6 +26,7 @@
 <!-- JQVMap -->
 <link href="<?php echo base_url('assets/jqvmap/dist/jqvmap.min.css') ?>" rel="stylesheet">
 <!-- bootstrap-daterangepicker -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="<?php echo base_url('assets/bootstrap-daterangepicker/daterangepicker.css') ?>" rel="stylesheet">
 <!-- Custom Theme Style -->
 <link href="<?php echo base_url('css/custom.min.css') ?>" rel="stylesheet">
